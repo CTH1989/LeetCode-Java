@@ -12,14 +12,13 @@ public class Solution {
             String strNp = que.poll();
             int stpNp = stp.poll();
             
-            if (strNp.equals(end)) return stpNp + 1;
-            
             char[] word = strNp.toCharArray();
             for (int i = 0; i < len; i ++) {
                 char saved = word[i];
                 for (char ch = 'a'; ch <= 'z'; ch ++) {
                     word[i] = ch;
                     String strTmp = new String(word);
+                    if (strTmp.equals(end)) return stpNp + 2;
                     if (dict.contains(strTmp) && !visit.contains(strTmp)) {
                         que.add(strTmp);
                         stp.add(stpNp + 1);
