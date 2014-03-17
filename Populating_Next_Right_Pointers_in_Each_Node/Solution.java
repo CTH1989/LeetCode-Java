@@ -8,27 +8,22 @@
  */
 public class Solution {
     public void connect(TreeLinkNode root) {
-        if (root == null)
+        if (root == null || root.left == null)
             return ;
-        Queue<TreeLinkNode> que = new LinkedList<TreeLinkNode>();
-        que.offer(root);
-        while (!que.isEmpty()) {
-            int len = que.size();
-            TreeLinkNode pp, np;
-            pp = que.poll();
-            np = pp;
+        TreeLinkNode pp = null, np = root;
+        TreeLinkNode start = root;
+        while (np != null) {
+            if (pp != null)
+                pp.right.next = np.left;
             if (np.left == null)
                 break;
             np.left.next = np.right;
-            que.offer(np.left);
-            que.offer(np.right);
-            for (int i = 1; i < len; i++) {
-                np = que.poll();
-                np.left.next = np.right;
-                pp.right.next = np.left;
-                pp = np;
-                que.offer(np.left);
-                que.offer(np.right);
+            pp = np;
+            np = np.next;
+            if (np == null) {
+                np = start.left;
+                start = np;
+                pp = null;
             }
         }
     }
