@@ -5,32 +5,18 @@ public class Solution {
             m = (l + r) / 2;
             if (A[m] == target)
                 return m;
-            else if (A[m] < target) {
-                if (A[l] <= A[r])
-                    l = m + 1;
-                else {
-                    if (A[m] >= A[r])
-                        l = m + 1;
-                    else {
-                        if (A[r] >= target)
-                            l = m + 1;
-                        else
-                            r = m - 1;
-                    }
-                }
-            } else {
-                if (A[l] <= A[r])
+            else if (A[l] < A[m]) {
+                if (A[l] <= target && target < A[m])
                     r = m - 1;
-                else {
-                    if (A[m] <= A[r])
-                        r = m - 1;
-                    else {
-                        if (A[r] >= target)
-                            l = m + 1;
-                        else
-                            r = m - 1;
-                    }
-                }
+                else
+                    l = m + 1;
+            } else if (A[l] > A[m]) {
+                if (A[m] < target && target <= A[r])
+                    l = m + 1;
+                else
+                    r = m - 1;
+            } else {
+                l = m + 1;
             }
         }
         return -1;
